@@ -22,20 +22,15 @@ For two points, let us know what you would like feedback on and/or have question
 
 infile = "/Users/nichmill/Library/Mobile Documents/com~apple~CloudDocs/C0D3/PycharmProjects/intro_to_python/"
 
-# read in ToDotest.txt here using readlines
-with open("ToDotest.txt", 'r') as todo_file:
-    lines = todo_file.readlines()
-
 # create empty dictionary to store data as we loop
 task_dict = {}
 
+# read in ToDotest.txt here using readlines
+with open("ToDo.txt", 'r') as todo_file:
+    lines = todo_file.readlines()
 for line in lines:
-    task = line.split(",")
-    task = task[0]
-    task = task.strip()
-    priority = line.split(",")
-    priority = priority[1]
-    priority = priority.strip()
+    task = line.split(",")[0].strip()
+    priority = line.split(",")[1].strip()
     task_dict[task] = priority
 
 while True:
@@ -78,12 +73,14 @@ while True:
             print("That task is not in the list.")
     # Choice 4 - Save tasks to the ToDo.txt file
     elif strChoice.strip() == '4':
-        with open("ToDotest.txt", 'w') as todo_file:
+        with open("ToDo.txt", 'w') as todo_file:
             for key, value in task_dict.items():
-                todo_file.write(key + ", " + value + "\n")
+                todo_file.write(str(key) + ", " + str(value) + "\n")
         todo_file.close()
     # Choice 5 - end the program
     elif strChoice.strip() == '5':
-        with open("ToDotest.txt", 'w') as todo_file:
-            todo_file.close()
+        with open("ToDo.txt", 'w') as todo_file:
+            for key, value in task_dict.items():
+                todo_file.write(str(key) + ", " + str(value) + "\n")
+        todo_file.close()
         quit()
